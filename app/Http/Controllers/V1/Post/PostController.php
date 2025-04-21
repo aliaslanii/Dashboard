@@ -32,7 +32,7 @@ class PostController extends Controller
             'photo_path' => 'nullable|image|max:2048',
         ]);
         $photoPath = null;
-        if ($request->hasFile('photo')) {
+        if ($request->hasFile('photo_path')) {
             $photoPath = $request->file('photo')->store('posts', 'public');
         }
         Post::create([
