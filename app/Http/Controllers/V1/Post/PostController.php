@@ -29,10 +29,10 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'photo_path' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:2048',
         ]);
         $photoPath = null;
-        if ($request->hasFile('photo_path')) {
+        if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('posts', 'public');
         }
         Post::create([
@@ -81,11 +81,11 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
-            'photo_path' => 'nullable|image|max:2048',
+            'photo' => 'nullable|image|max:2048',
         ]);
 
-        if ($request->hasFile('photo_path')) {
-            $photoPath = $request->file('photo_path')->store('posts', 'public');
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('posts', 'public');
             $post->photo_path = $photoPath;
         }
 
