@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\V1\Post;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\V1\Post\StoreRequest;
+use App\Http\Requests\V1\Post\UpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -23,7 +25,7 @@ class PostController extends Controller
         return view('posts.create',compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -46,7 +48,7 @@ class PostController extends Controller
 
         return redirect()->route('posts.index')->with('success', 'پست با موفقیت ایجاد شد.');
     }
-    public function search(Request $request)
+    public function search(UpdateRequest $request)
     {
         $posts = Post::query();
 
@@ -73,11 +75,12 @@ class PostController extends Controller
         return view('posts.edit', compact('post','categories'));
     }
 
-    public function update(Request $request, Post $post)
+    public function update(UpdateRequest $request, Post $post)
     {
         if($post->user_id != Auth::id()){
             abort(403);
         }
+        $data = $request->validated();
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
