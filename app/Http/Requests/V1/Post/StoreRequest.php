@@ -27,6 +27,7 @@ class StoreRequest extends FormRequest
             'content' => ['string','required'],
             'category_id' => ['required','exists:categories,id'],
             'photo' => ['nullable','image','max:2048'],
+            "published_at" => ['required']
         ];
     }
 }

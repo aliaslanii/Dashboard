@@ -26,6 +26,7 @@ class UpdateRequest extends FormRequest
             'title'   => ['required','string','max:255'],
             'content' => ['string','required'],
             'photo'   => ['nullable','image','max:2048'],
+            'published_at'   => ['required'],
         ];
     }
 

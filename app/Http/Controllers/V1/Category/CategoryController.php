@@ -37,10 +37,6 @@ class CategoryController extends Controller
 
     public function update(UpdateRequest $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
         $category->update([
             'name' => $request->name,
         ]);

@@ -27,12 +27,6 @@ class PostController extends Controller
 
     public function store(StoreRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'photo' => 'nullable|image|max:2048',
-        ]);
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('posts', 'public');
@@ -80,12 +74,6 @@ class PostController extends Controller
         if($post->user_id != Auth::id()){
             abort(403);
         }
-        $data = $request->validated();
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'photo' => 'nullable|image|max:2048',
-        ]);
 
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('posts', 'public');
